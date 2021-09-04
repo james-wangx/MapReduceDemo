@@ -1,4 +1,4 @@
-package com.pineapple.mapreduce.writableComparable;
+package com.pineapple.mapreduce.serialization;
 
 import org.apache.hadoop.io.WritableComparable;
 import org.jetbrains.annotations.NotNull;

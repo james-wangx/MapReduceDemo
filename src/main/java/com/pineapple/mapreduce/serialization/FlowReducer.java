@@ -1,4 +1,4 @@
-package com.pineapple.mapreduce.writableComparable;
+package com.pineapple.mapreduce.serialization;
 
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
