@@ -22,6 +22,7 @@ public class WordCountMapper extends Mapper<LongWritable, Text, Text, IntWritabl
     private final IntWritable outV = new IntWritable(1);
     private final String regex = ".*?(\\w+-?\\w+).*?";
     private Pattern pattern;
+    private Matcher matcher;
 
     /**
      * 重写 map 方法，每个 KV 键值对都会调用一次这个方法
@@ -37,8 +38,9 @@ public class WordCountMapper extends Mapper<LongWritable, Text, Text, IntWritabl
 
         // 循环写入环形缓冲区
         for (String word : words) {
+            // 过滤掉标点符号（不包括'-'）
             pattern = Pattern.compile(regex);
-            Matcher matcher = pattern.matcher(word);
+            matcher = pattern.matcher(word);
             if (matcher.matches()) {
                 String group = matcher.group(1);
                 // 封装outK，即将 String 转小写再转为 Text 类型
