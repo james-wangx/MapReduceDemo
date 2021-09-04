@@ -27,9 +27,8 @@ public class WordCountReducer extends Reducer<Text, IntWritable, Text, IntWritab
         int sum = 0;
 
         // 值 values 是一个迭代器，可以使用 for each 循环取出每一项
-        for (IntWritable value : values) {
+        for (IntWritable value : values)
             sum += value.get();
-        }
 
         outV.set(sum);
 
