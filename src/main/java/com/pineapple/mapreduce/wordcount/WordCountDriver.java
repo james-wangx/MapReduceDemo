@@ -1,6 +1,7 @@
 package com.pineapple.mapreduce.wordcount;
 
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
@@ -14,30 +15,38 @@ public class WordCountDriver {
 
     public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException {
 
-        // 1 获取job
+        // 创建一个新的 job
+        // 如果要 new 的 Configuration() 为空，则可以直接调用 getInstance()
         Configuration conf = new Configuration();
         Job job = Job.getInstance(conf);
-
-        // 2 设置jar包路径
         job.setJarByClass(WordCountDriver.class);
 
-        // 3 关联mapper和reducer
+        // 指定一下 job 名
+        job.setJobName("WordCount");
+
+        // 关联 mapper 和 reducer
         job.setMapperClass(WordCountMapper.class);
         job.setReducerClass(WordCountReducer.class);
 
-        // 4 设置map输出的kv类型
+        // 设置 map 输出的 kv 类型
         job.setMapOutputKeyClass(Text.class);
         job.setMapOutputValueClass(IntWritable.class);
 
-        // 5 设置最终输出的kv类型
+        // 设置最终输出的 kv 类型
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
 
-        // 6 设置输入路径和输出路径
-        FileInputFormat.setInputPaths(job, new Path("input/inputword"));
-        FileOutputFormat.setOutputPath(job, new Path("output/outputword"));
+        // 判断输出路径是否存在，存在则删除
+        FileSystem fileSystem = FileSystem.get(conf);
+        Path outputPath = new Path("output/WordCount");
+        if (fileSystem.exists(outputPath))
+            fileSystem.delete(outputPath, true);
 
-        // 7 提交job
+        // 设置输入路径和输出路径
+        FileInputFormat.setInputPaths(job, new Path("input/WordCount"));
+        FileOutputFormat.setOutputPath(job, outputPath);
+
+        // 提交job
         boolean result = job.waitForCompletion(true);
         System.exit(result ? 0 : 1);
     }
