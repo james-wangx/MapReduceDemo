@@ -38,12 +38,12 @@ public class WordCountDriver {
 
         // 判断输出路径是否存在，存在则删除
         FileSystem fileSystem = FileSystem.get(conf);
-        Path outputPath = new Path("output/WordCount");
+        Path outputPath = new Path("output/wordcount");
         if (fileSystem.exists(outputPath))
             fileSystem.delete(outputPath, true);
 
         // 设置输入路径和输出路径
-        FileInputFormat.setInputPaths(job, new Path("input/WordCount"));
+        FileInputFormat.setInputPaths(job, new Path("input/wordcount"));
         FileOutputFormat.setOutputPath(job, outputPath);
 
         // 提交job

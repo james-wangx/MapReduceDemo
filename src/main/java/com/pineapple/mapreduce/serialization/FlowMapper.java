@@ -6,28 +6,24 @@ import org.apache.hadoop.mapreduce.Mapper;
 
 import java.io.IOException;
 
-public class FlowMapper extends Mapper<LongWritable, Text, FlowBean, Text> {
+public class FlowMapper extends Mapper<LongWritable, Text, Text, FlowBean> {
 
-    private final FlowBean outK = new FlowBean();
-    private final Text outV = new Text();
+    private final Text outK = new Text();
+    private final FlowBean outV = new FlowBean();
 
     @Override
-    protected void map(LongWritable key, Text value, Mapper<LongWritable, Text, FlowBean, Text>.Context context)
+    protected void map(LongWritable key, Text value, Mapper<LongWritable, Text, Text, FlowBean>.Context context)
             throws IOException, InterruptedException {
-
-        // 获取一行
         String line = value.toString();
-
-        // 切割
         String[] split = line.split("\t");
 
-        // 封装
-        outV.set(split[0]);
-        outK.setUpFlow(Long.parseLong(split[1]));
-        outK.setDownFlow(Long.parseLong(split[2]));
-        outK.setSumFlow();
+        outK.set(split[1]);
+        // 封装 FlowBean
+        outV.setUpFlow(Long.parseLong(split[split.length - 3]));
+        outV.setDownFlow(Long.parseLong(split[split.length - 2]));
+        // 可以到 Reducer 再计算总流量
+//        outK.setSumFlow();
 
-        // 写出
         context.write(outK, outV);
     }
 }

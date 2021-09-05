@@ -1,6 +1,6 @@
 package com.pineapple.mapreduce.serialization;
 
-import org.apache.hadoop.io.WritableComparable;
+import org.apache.hadoop.io.Writable;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.DataInput;
@@ -8,17 +8,15 @@ import java.io.DataOutput;
 import java.io.IOException;
 
 /**
- * 1、定义类实现Writable接口
- * 2、重写序列化和反序列化方法
- * 3、重写空参构造
- * 4、重写toString方法
+ * 自定义数据类型必须支持序列化，需要实现 Writable 接口
  */
-public class FlowBean implements WritableComparable<FlowBean> {
+public class FlowBean implements Writable {
+
     private long upFlow; // 上行流量
     private long downFlow; // 下行流量
     private long sumFlow; // 总流量
 
-    // 空参构造
+    // 运行时 MR 会通过反射机制调用空参构造方法
     public FlowBean() {
     }
 
@@ -46,39 +44,26 @@ public class FlowBean implements WritableComparable<FlowBean> {
         this.sumFlow = this.upFlow + this.downFlow;
     }
 
+    /**
+     * 序列化 和 反序列化 字段的顺序必须一样
+     */
     @Override
-    public void write(DataOutput out) throws IOException {
+    public void write(@NotNull DataOutput out) throws IOException {
         out.writeLong(upFlow);
         out.writeLong(downFlow);
         out.writeLong(sumFlow);
     }
 
     @Override
-    public void readFields(DataInput in) throws IOException {
+    public void readFields(@NotNull DataInput in) throws IOException {
         this.upFlow = in.readLong();
         this.downFlow = in.readLong();
         this.sumFlow = in.readLong();
     }
 
-    @Override
-    public int compareTo(@NotNull FlowBean o) {
-        // 总流量的倒序排序
-        if (this.sumFlow > o.sumFlow) {
-            return -1;
-        } else if (this.sumFlow < o.sumFlow) {
-            return 1;
-        } else {
-            // 按照上行流量的正序排
-            if (this.upFlow > o.upFlow) {
-                return 1;
-            } else if (this.upFlow < o.upFlow) {
-                return -1;
-            } else {
-                return 0;
-            }
-        }
-    }
-
+    /**
+     * 自定义输出格式
+     */
     @Override
     public String toString() {
         return upFlow + "\t" + downFlow + "\t" + sumFlow;
