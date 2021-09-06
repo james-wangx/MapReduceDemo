@@ -1,7 +1,6 @@
 package com.pineapple.mapreduce.partitionerAndWritableComparable;
 
 import org.apache.hadoop.io.WritableComparable;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -61,7 +60,7 @@ public class FlowBean implements WritableComparable<FlowBean> {
     }
 
     @Override
-    public int compareTo(@NotNull FlowBean o) {
+    public int compareTo(FlowBean o) {
         // 总流量的倒序排序
         if (this.sumFlow > o.sumFlow) {
             return -1;
