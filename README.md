@@ -295,9 +295,3 @@ FileOutputFormat.setOutputPath(job, outputPath);
 hadoop jar MapReduceDemo-1.0-SNAPSHOT.jar com.pineapple.mapreduce.wordcount.HdfsWordCountDriver hdfs://hadoop102:8020/input/WordCount hdfs://hadoop102:8020/output/WordCount
 ```
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/b5ceff9ca32c4d7aad0fa1ba5031b798.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAcGluZWFwcGxlX3B5,size_20,color_FFFFFF,t_70,g_se,x_16)
-
------
-
-Github仓库地址：[https://github.com/pineapple-cpp/MapReduceDemo](https://github.com/pineapple-cpp/MapReduceDemo)
-
-喜欢我的文章的话，欢迎`关注`👇`点赞`👇`评论`👇`收藏`👇	谢谢支持！！！
