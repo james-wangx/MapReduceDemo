@@ -8,13 +8,12 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
 public class HdfsWordCountDriver {
 
-    public static void main(String @NotNull [] args) throws IOException, InterruptedException, ClassNotFoundException {
+    public static void main(String [] args) throws IOException, InterruptedException, ClassNotFoundException {
 
         // 创建一个新的 job
         // 如果要 new 的 Configuration() 为空，则可以直接调用 getInstance()

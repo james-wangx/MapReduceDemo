@@ -1,7 +1,6 @@
 package com.pineapple.mapreduce.serialization;
 
 import org.apache.hadoop.io.Writable;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -48,14 +47,14 @@ public class FlowBean implements Writable {
      * 序列化 和 反序列化 字段的顺序必须一样
      */
     @Override
-    public void write(@NotNull DataOutput out) throws IOException {
+    public void write(DataOutput out) throws IOException {
         out.writeLong(upFlow);
         out.writeLong(downFlow);
         out.writeLong(sumFlow);
     }
 
     @Override
-    public void readFields(@NotNull DataInput in) throws IOException {
+    public void readFields(DataInput in) throws IOException {
         this.upFlow = in.readLong();
         this.downFlow = in.readLong();
         this.sumFlow = in.readLong();
