@@ -1,4 +1,4 @@
-package com.pineapple.mapreduce.partitioner2;
+package com.pineapple.mapreduce.partitioner;
 
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Partitioner;
@@ -7,30 +7,20 @@ public class ProvincePartitioner extends Partitioner<Text, FlowBean> {
 
     @Override
     public int getPartition(Text text, FlowBean flowBean, int numPartitions) {
-        // text 是手机号
         String phone = text.toString();
-        // 取手机号前三位
         String prePhone = phone.substring(0, 3);
 
-        int partition;
         switch (prePhone) {
             case "136":
-                partition = 0;
-                break;
+                return 0;
             case "137":
-                partition = 1;
-                break;
+                return 1;
             case "138":
-                partition = 2;
-                break;
+                return 2;
             case "139":
-                partition = 3;
-                break;
+                return 3;
             default:
-                partition = 4;
-                break;
+                return 4;
         }
-
-        return partition;
     }
 }

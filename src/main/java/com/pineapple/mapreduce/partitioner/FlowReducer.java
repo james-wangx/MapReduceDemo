@@ -1,4 +1,4 @@
-package com.pineapple.mapreduce.partitioner2;
+package com.pineapple.mapreduce.partitioner;
 
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
@@ -13,7 +13,6 @@ public class FlowReducer extends Reducer<Text, FlowBean, Text, FlowBean> {
     protected void reduce(Text key, Iterable<FlowBean> values, Reducer<Text, FlowBean, Text, FlowBean>.Context context)
             throws IOException, InterruptedException {
 
-        // 1 遍历集合累加值
         long totalUp = 0;
         long totalDown = 0;
 
@@ -22,12 +21,11 @@ public class FlowReducer extends Reducer<Text, FlowBean, Text, FlowBean> {
             totalDown += value.getDownFlow();
         }
 
-        // 2 封装 outK outV
+        // 封装 FlowBean
         outV.setUpFlow(totalUp);
         outV.setDownFlow(totalDown);
         outV.setSumFlow();
 
-        // 3 写出
         context.write(key, outV);
     }
 }
