@@ -1,4 +1,4 @@
-package com.pineapple.mapreduce.partitioner;
+package com.pineapple.mapreduce.sort;
 
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;

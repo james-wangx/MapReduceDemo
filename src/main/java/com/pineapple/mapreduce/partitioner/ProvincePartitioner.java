@@ -3,10 +3,10 @@ package com.pineapple.mapreduce.partitioner;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Partitioner;
 
-public class ProvincePartitioner extends Partitioner<Text, FlowBean> {
+public class ProvincePartitioner extends Partitioner<Text, PartitionBean> {
 
     @Override
-    public int getPartition(Text text, FlowBean flowBean, int numPartitions) {
+    public int getPartition(Text text, PartitionBean partitionBean, int numPartitions) {
         String phone = text.toString();
         String prePhone = phone.substring(0, 3);
 

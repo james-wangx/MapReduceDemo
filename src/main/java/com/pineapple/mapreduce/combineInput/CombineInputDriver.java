@@ -12,16 +12,16 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 import java.io.IOException;
 
-public class WordCountDriver {
+public class CombineInputDriver {
 
     public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException {
         Configuration conf = new Configuration();
         Job job = Job.getInstance(conf);
-        job.setJarByClass(WordCountDriver.class);
+        job.setJarByClass(CombineInputDriver.class);
         job.setJobName("WordCount");
 
-        job.setMapperClass(WordCountMapper.class);
-        job.setReducerClass(WordCountReducer.class);
+        job.setMapperClass(CombineInputMapper.class);
+        job.setReducerClass(CombineInputReducer.class);
 
         job.setMapOutputKeyClass(Text.class);
         job.setMapOutputValueClass(IntWritable.class);
@@ -38,11 +38,11 @@ public class WordCountDriver {
         CombineTextInputFormat.setMaxInputSplitSize(job, 20 * 1024 * 1024);
 
         FileSystem fileSystem = FileSystem.get(conf);
-        Path outputPath = new Path("output/CombineOutput");
+        Path outputPath = new Path("output/combineOutput");
         if (fileSystem.exists(outputPath))
             fileSystem.delete(outputPath, true);
 
-        FileInputFormat.setInputPaths(job, new Path("input/CombineInput"));
+        FileInputFormat.setInputPaths(job, new Path("input/combineInput"));
         FileOutputFormat.setOutputPath(job, outputPath);
 
         boolean result = job.waitForCompletion(true);

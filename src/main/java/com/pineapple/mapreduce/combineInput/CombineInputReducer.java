@@ -6,7 +6,7 @@ import org.apache.hadoop.mapreduce.Reducer;
 
 import java.io.IOException;
 
-public class WordCountReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
+public class CombineInputReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
 
     private final IntWritable outV = new IntWritable();
 

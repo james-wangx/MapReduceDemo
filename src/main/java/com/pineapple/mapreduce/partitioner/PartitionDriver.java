@@ -10,32 +10,32 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 import java.io.IOException;
 
-public class FlowDriver {
+public class PartitionDriver {
 
     public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException {
 
         Configuration conf = new Configuration();
         Job job = Job.getInstance(conf);
-        job.setJarByClass(FlowDriver.class);
+        job.setJarByClass(PartitionDriver.class);
         job.setJobName("ProvincePartitioner");
 
-        job.setMapperClass(FlowMapper.class);
-        job.setReducerClass(FlowReducer.class);
+        job.setMapperClass(PartitionMapper.class);
+        job.setReducerClass(PartitionReducer.class);
 
         job.setMapOutputKeyClass(Text.class);
-        job.setMapOutputValueClass(FlowBean.class);
+        job.setMapOutputValueClass(PartitionBean.class);
 
         job.setOutputKeyClass(Text.class);
-        job.setOutputValueClass(FlowBean.class);
+        job.setOutputValueClass(PartitionBean.class);
 
         // 设置分区类
         job.setPartitionerClass(ProvincePartitioner.class);
 
         // 设置分区数
-        job.setNumReduceTasks(6);
+        job.setNumReduceTasks(5);
 
         FileSystem fileSystem = FileSystem.get(conf);
-        Path outputPath = new Path("output/ProvincePartitioner");
+        Path outputPath = new Path("output/provincePartitioner");
         if (fileSystem.exists(outputPath))
             fileSystem.delete(outputPath, true);
 

@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class WordCountMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
+public class CombineInputMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
 
     private final Text outK = new Text();
     private final IntWritable outV = new IntWritable(1);

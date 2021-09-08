@@ -9,14 +9,14 @@ import java.io.IOException;
 /**
  * 自定义数据类型必须支持序列化，需要实现 Writable 接口
  */
-public class FlowBean implements Writable {
+public class PartitionBean implements Writable {
 
     private long upFlow; // 上行流量
     private long downFlow; // 下行流量
     private long sumFlow; // 总流量
 
     // 运行时 MR 会通过反射机制调用空参构造方法
-    public FlowBean() {
+    public PartitionBean() {
     }
 
     public long getUpFlow() {

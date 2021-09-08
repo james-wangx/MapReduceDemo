@@ -12,16 +12,16 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 import java.io.IOException;
 
-public class HdfsCombineDriver {
+public class HdfsCombineInputDriver {
 
     public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException {
         Configuration conf = new Configuration();
         Job job = Job.getInstance(conf);
-        job.setJarByClass(HdfsCombineDriver.class);
+        job.setJarByClass(HdfsCombineInputDriver.class);
         job.setJobName("CombineInput");
 
-        job.setMapperClass(WordCountMapper.class);
-        job.setReducerClass(WordCountReducer.class);
+        job.setMapperClass(CombineInputMapper.class);
+        job.setReducerClass(CombineInputReducer.class);
 
         job.setMapOutputKeyClass(Text.class);
         job.setMapOutputValueClass(IntWritable.class);
