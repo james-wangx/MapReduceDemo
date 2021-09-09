@@ -6,6 +6,10 @@ import org.apache.hadoop.mapreduce.Reducer;
 
 import java.io.IOException;
 
+/**
+ * Combiner 属于 Shuffle 阶段
+ * 前后两个泛型都是 Map 输出的 KV 的类型
+ */
 public class WordCountCombiner extends Reducer<Text, IntWritable, Text, IntWritable> {
 
     private final IntWritable outV = new IntWritable();
@@ -13,7 +17,6 @@ public class WordCountCombiner extends Reducer<Text, IntWritable, Text, IntWrita
     @Override
     protected void reduce(Text key, Iterable<IntWritable> values, Reducer<Text, IntWritable, Text, IntWritable>.Context
             context) throws IOException, InterruptedException {
-
         int sum = 0;
 
         for (IntWritable value : values) {
@@ -21,7 +24,6 @@ public class WordCountCombiner extends Reducer<Text, IntWritable, Text, IntWrita
         }
 
         outV.set(sum);
-
         context.write(key, outV);
     }
 }
