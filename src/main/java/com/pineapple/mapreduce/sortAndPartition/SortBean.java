@@ -1,22 +1,18 @@
-package com.pineapple.mapreduce.sort;
+package com.pineapple.mapreduce.sortAndPartition;
 
-import org.apache.hadoop.io.Writable;
+import org.apache.hadoop.io.WritableComparable;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
-/**
- * 自定义数据类型必须支持序列化，需要实现 Writable 接口
- */
-public class FlowBean implements Writable {
+public class SortBean implements WritableComparable<SortBean> {
 
-    private long upFlow; // 上行流量
-    private long downFlow; // 下行流量
-    private long sumFlow; // 总流量
+    private long upFlow;
+    private long downFlow;
+    private long sumFlow;
 
-    // 运行时 MR 会通过反射机制调用空参构造方法
-    public FlowBean() {
+    public SortBean() {
     }
 
     public long getUpFlow() {
@@ -39,13 +35,23 @@ public class FlowBean implements Writable {
         return sumFlow;
     }
 
-    public void setSumFlow() {
-        this.sumFlow = this.upFlow + this.downFlow;
+    public void setSumFlow(long sumFlow) {
+        this.sumFlow = sumFlow;
     }
 
-    /**
-     * 序列化 和 反序列化 字段的顺序必须一样
-     */
+    @Override
+    public int compareTo(SortBean o) {
+        // 先按照总流量的倒序排序
+        if (this.sumFlow > o.sumFlow)
+            return -1;
+        else if (this.sumFlow < o.sumFlow)
+            return 1;
+        else {
+            // 再按照上行流量的正序排序
+            return Long.compare(this.upFlow, o.upFlow);
+        }
+    }
+
     @Override
     public void write(DataOutput out) throws IOException {
         out.writeLong(upFlow);
@@ -60,9 +66,6 @@ public class FlowBean implements Writable {
         this.sumFlow = in.readLong();
     }
 
-    /**
-     * 自定义输出格式
-     */
     @Override
     public String toString() {
         return upFlow + "\t" + downFlow + "\t" + sumFlow;
