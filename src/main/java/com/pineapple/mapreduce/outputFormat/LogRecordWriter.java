@@ -1,4 +1,4 @@
-package com.pineapple.mapreduce.outputformat;
+package com.pineapple.mapreduce.outputFormat;
 
 import org.apache.hadoop.fs.FSDataOutputStream;
 import org.apache.hadoop.fs.FileSystem;
@@ -20,9 +20,8 @@ public class LogRecordWriter extends RecordWriter<Text, NullWritable> {
         // 准备创建两条输出流
         try {
             FileSystem fs = FileSystem.get(job.getConfiguration());
-            atguiguOut = fs.create(new Path("output/outputformat/atguigu.log"));
-            otherOut = fs.create(new Path("output/outputformat/other.log"));
-
+            atguiguOut = fs.create(new Path("output/outputFormat/atguigu.log"));
+            otherOut = fs.create(new Path("output/outputFormat/other.log"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -40,7 +39,7 @@ public class LogRecordWriter extends RecordWriter<Text, NullWritable> {
     }
 
     @Override
-    public void close(TaskAttemptContext context) throws IOException, InterruptedException {
+    public void close(TaskAttemptContext context){
         // 关流
         IOUtils.closeStream(atguiguOut);
         IOUtils.closeStream(otherOut);

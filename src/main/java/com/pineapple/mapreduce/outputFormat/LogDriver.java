@@ -1,4 +1,4 @@
-package com.pineapple.mapreduce.outputformat;
+package com.pineapple.mapreduce.outputFormat;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
@@ -30,10 +30,13 @@ public class LogDriver {
         // 设置自定义的 OutputFormat
         job.setOutputFormatClass(LogOutputFormat.class);
 
-        FileInputFormat.setInputPaths(job, new Path("input/inputoutputformat"));
+        Path inputPath = new Path("input/outputFormat");
+        Path outputPath = new Path("output/outputFormat");
+
+        FileInputFormat.setInputPaths(job, inputPath);
         // 虽然我们自定义了 OutputFormat ， 但是因为我们的 OutputFormat 继承自 FileOutputFormat
         // 而 FileOutputFormat 要输出一个 _SUCCESS 文件，所以在这还需要指定一个输出目录
-        FileOutputFormat.setOutputPath(job, new Path("output/outputformat"));
+        FileOutputFormat.setOutputPath(job, outputPath);
 
         boolean b = job.waitForCompletion(true);
         System.exit(b ? 0 : 1);
