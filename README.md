@@ -2,7 +2,7 @@
 
 # MapReduce 演示案例
 
-尚硅谷最帅的男人的视频：[https://www.bilibili.com/video/BV1Qp4y1n7EN](https://www.bilibili.com/video/BV1Qp4y1n7EN){:target="_blank"}
+尚硅谷最帅的男人的视频：[https://www.bilibili.com/video/BV1Qp4y1n7EN](https://www.bilibili.com/video/BV1Qp4y1n7EN)
 
 # 入门案例 - 词频统计
 
