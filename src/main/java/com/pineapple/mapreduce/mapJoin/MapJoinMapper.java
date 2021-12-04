@@ -19,8 +19,8 @@ import java.util.HashMap;
 
 public class MapJoinMapper extends Mapper<LongWritable, Text, Text, NullWritable> {
 
-    private HashMap<String, String> pdMap = new HashMap<>();
-    private Text outK = new Text();
+    private final HashMap<String, String> pdMap = new HashMap<>();
+    private final Text outK = new Text();
 
     @Override
     protected void setup(Mapper<LongWritable, Text, Text, NullWritable>.Context context) throws IOException {

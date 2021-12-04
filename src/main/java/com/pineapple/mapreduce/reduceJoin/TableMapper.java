@@ -9,10 +9,9 @@ import java.io.IOException;
 
 public class TableMapper extends Mapper<LongWritable, Text, Text, TableBean> {
 
-    private FileSplit split;
     private String fileName;
-    private Text outK = new Text();
-    private TableBean outV = new TableBean();
+    private final Text outK = new Text();
+    private final TableBean outV = new TableBean();
 
     /**
      * 重写初始化方法，获取文件名称
@@ -20,7 +19,7 @@ public class TableMapper extends Mapper<LongWritable, Text, Text, TableBean> {
     @Override
     protected void setup(Mapper<LongWritable, Text, Text, TableBean>.Context context){
         // 获取切片信息，InputSplit 是抽象方法，具体用 FileSplit
-        split = (FileSplit) context.getInputSplit();
+        FileSplit split = (FileSplit) context.getInputSplit();
         // 获取文件名
         fileName = split.getPath().getName();
     }
