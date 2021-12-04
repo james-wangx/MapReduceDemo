@@ -11,6 +11,9 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 import java.io.IOException;
 
+/**
+ * https://blog.csdn.net/pineapple_C/article/details/120222642
+ */
 public class TableDriver {
 
     public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException {

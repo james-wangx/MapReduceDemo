@@ -20,9 +20,8 @@ public class TableReducer extends Reducer<Text, TableBean, TableBean, NullWritab
         TableBean pdBean = new TableBean();
 
         for (TableBean value : values) {
-            if ("order".equals(value.getFlag())) {
+            if ("order".equals(value.getFlag())) { // order表
                 TableBean tempTableBean = new TableBean();
-
                 // 属性赋值
                 try {
                     BeanUtils.copyProperties(tempTableBean, value);
@@ -31,7 +30,7 @@ public class TableReducer extends Reducer<Text, TableBean, TableBean, NullWritab
                 }
 
                 orderBeans.add(tempTableBean);
-            } else {
+            } else { // pd表
                 try {
                     BeanUtils.copyProperties(pdBean, value);
                 } catch (IllegalAccessException | InvocationTargetException e) {
